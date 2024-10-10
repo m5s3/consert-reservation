@@ -36,3 +36,8 @@
 
 ## ERD
 ![콘서트 예약 서비스 ERD](/image/concert-reservation-erd.png)
+
+---
+
+## API 명세서
+[API 명세서](https://github.com/m5s3/consert-reservation/wiki)

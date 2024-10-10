@@ -34,3 +34,10 @@ domain/
 		(Repositories)
 		infrastructure/
 ```
+
+--- 
+
+## 기술 스택
+- SpringBoot
+- Spring data JPA
+- MySQL

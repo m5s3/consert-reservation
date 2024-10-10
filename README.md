@@ -24,7 +24,7 @@
 ![예약 가능 날짜 시퀀스 다이어그램](/image/dateOfAvaileAbleSeat-show.png)
 
 ### 잔액 조회
-![잔액 조회 시퀀스 다이어그램](/image/charge-show)
+![잔액 조회 시퀀스 다이어그램](/image/charge-show.png)
 
 ### 잔액 충전
 ![잔액 충전 시퀀스 다이어그램](/image/charge-charge.png)

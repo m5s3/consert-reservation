@@ -31,3 +31,8 @@
 
 ### 결제
 ![결제 시퀀스 다이어그램](/image/payment.png)
+
+---
+
+## ERD
+![콘서트 예약 서비스 ERD](/image/concert-reservation-erd.png)

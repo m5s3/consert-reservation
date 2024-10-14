@@ -22,6 +22,7 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     private int charge;
+    private String name;
 }
 
 

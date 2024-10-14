@@ -1,6 +1,7 @@
-CREATE TABLE user_id
+CREATE TABLE user
 (
     `user_id`            BIGINT(20) NOT NULL AUTO_INCREMENT,
+    `name`               VARCHAR(255) NOT NULL COMMENT '이름',
     `charge`             INT NULL COMMENT '충전금액',
     `created_at`         datetime(6) NOT NULL COMMENT '생성 일시',
     `updated_at`         datetime(6) NOT NULL COMMENT '수정 일시',

@@ -2,12 +2,14 @@ package com.consertreservation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @SpringBootApplication
-public class ConsertReservationApplication {
+public class ConcertReservationApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsertReservationApplication.class, args);
+        SpringApplication.run(ConcertReservationApplication.class, args);
     }
 
 }

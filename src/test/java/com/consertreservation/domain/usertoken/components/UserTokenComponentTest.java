@@ -92,7 +92,6 @@ class UserTokenComponentTest {
         Assertions.assertThat(userTokenDto.waitingOrder()).isEqualTo(2);
     }
 
-
     private UserToken createUserToken(UUID id, long userId, TokenStatus status) {
         return UserToken.builder()
                 .id(id)

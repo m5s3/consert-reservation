@@ -1,6 +1,9 @@
 package com.consertreservation.domain.usertoken.model;
 
+import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.INVALID_WAITING_ORDER;
+
 import com.consertreservation.domain.base.BaseTimeEntity;
+import com.consertreservation.domain.usertoken.exception.UserTokenException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,6 +44,10 @@ public class UserToken extends BaseTimeEntity {
     }
 
     public void updateWaitingOrder(int waitingOrder) {
+        if (waitingOrder < 0) {
+            throw new UserTokenException(INVALID_WAITING_ORDER,
+                    "대기 순서는 음수일 수가 없습니다. waitingOrder=%s".formatted(waitingOrder));
+        }
         this.waitingOrder = waitingOrder;
     }
 }

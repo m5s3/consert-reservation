@@ -34,10 +34,8 @@ class UserTokenComponentTest {
     void create_userToken_test() {
         // Given
         long userId = 1L;
-        UserToken userToken = UserToken.builder()
-                .userid(userId)
-                .status(TokenStatus.WAIT)
-                .build();
+        UUID id = UUID.randomUUID();
+        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
         Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
         // When & Then
         CreateUserTokenDto newUserToken = userTokenComponent.createToken(userId);
@@ -50,11 +48,7 @@ class UserTokenComponentTest {
         // Given
         long userId = 1L;
         UUID id = UUID.randomUUID();
-        UserToken userToken = UserToken.builder()
-                .id(id)
-                .userid(userId)
-                .status(TokenStatus.WAIT)
-                .build();
+        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
         Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(userToken);
 
         // When
@@ -70,11 +64,7 @@ class UserTokenComponentTest {
         // Given
         long userId = 1L;
         UUID id = UUID.randomUUID();
-        UserToken userToken = UserToken.builder()
-                .id(id)
-                .userid(userId)
-                .status(TokenStatus.WAIT)
-                .build();
+        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
 
         Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(null);
         Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
@@ -82,5 +72,13 @@ class UserTokenComponentTest {
         UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
         // Then
         Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
+    }
+
+    private UserToken createUserToken(UUID id, long userId, TokenStatus status) {
+        return UserToken.builder()
+                .id(id)
+                .userid(userId)
+                .status(status)
+                .build();
     }
 }

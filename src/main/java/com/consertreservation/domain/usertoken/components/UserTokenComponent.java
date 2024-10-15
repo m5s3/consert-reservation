@@ -6,6 +6,7 @@ import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.consertreservation.domain.usertoken.respositories.UserTokenStoreRepository;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,11 @@ public class UserTokenComponent {
 
     @Transactional(readOnly = true)
     public UserTokenDto showUserToken(long userId) {
-        return UserTokenDto.from(userTokenReaderRepository.getUserToken(userId));
+        UserToken userToken = userTokenReaderRepository.getUserToken(userId);
+        if (Objects.isNull(userToken)) {
+            CreateUserTokenDto token = createToken(userId);
+            return UserTokenDto.from(token);
+        }
+        return UserTokenDto.from(userToken);
     }
 }

@@ -63,4 +63,24 @@ class UserTokenComponentTest {
         // Then
         Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
     }
+
+    @Test
+    @DisplayName("유저토큰이 존재하지 않으면 생성해서 반환한다.")
+    void show_userToken_when_non_exist_test() {
+        // Given
+        long userId = 1L;
+        UUID id = UUID.randomUUID();
+        UserToken userToken = UserToken.builder()
+                .id(id)
+                .userid(userId)
+                .status(TokenStatus.WAIT)
+                .build();
+
+        Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(null);
+        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
+        // When
+        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
+        // Then
+        Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
+    }
 }

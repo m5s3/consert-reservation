@@ -7,10 +7,16 @@ import java.util.UUID;
 public record UserTokenDto(
         UUID id,
         long userId,
-        TokenStatus tokenStatus
+        TokenStatus tokenStatus,
+        int waitingOrder
 ) {
 
     public static UserTokenDto from(UserToken userToken) {
-        return new UserTokenDto(userToken.getId(), userToken.getUserId(), userToken.getStatus());
+        return new UserTokenDto(userToken.getId(), userToken.getUserId(), userToken.getStatus(), userToken.getWaitingOrder());
+    }
+
+    public static UserTokenDto from(CreateUserTokenDto createUserTokenDto) {
+        return new UserTokenDto(createUserTokenDto.id(), createUserTokenDto.userId(), createUserTokenDto.status(),
+                createUserTokenDto.waitingOrder());
     }
 }

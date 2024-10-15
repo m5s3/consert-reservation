@@ -1,4 +1,4 @@
-package com.consertreservation.domain.usertoken.infa;
+package com.consertreservation.domain.usertoken.infra;
 
 import static com.consertreservation.domain.usertoken.model.QUserToken.userToken;
 

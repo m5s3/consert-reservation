@@ -74,6 +74,25 @@ class UserTokenComponentTest {
         Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
     }
 
+    @Test
+    @DisplayName("유저토큰을 생성시 다음 순번의 대기순서를 받는다.")
+    void next_waitingOrder_test() {
+        // Given
+        long userId = 3L;
+        UUID id = UUID.randomUUID();
+        UserToken thirdUserToken = createUserToken(id, userId, TokenStatus.WAIT);
+
+        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(thirdUserToken);
+        Mockito.when(userTokenReaderRepository.getWaitOfUserTokenCount()).thenReturn(1L);
+
+        // When
+        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
+
+        // Then
+        Assertions.assertThat(userTokenDto.waitingOrder()).isEqualTo(2);
+    }
+
+
     private UserToken createUserToken(UUID id, long userId, TokenStatus status) {
         return UserToken.builder()
                 .id(id)

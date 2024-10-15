@@ -25,6 +25,7 @@ public class UserTokenComponent {
                 .status(TokenStatus.WAIT)
                 .build();
         UserToken newUserToken = storeRepository.save(userToken);
+        newUserToken.updateWaitingOrder(calculateWaitingOrder());
         return CreateUserTokenDto.from(newUserToken);
     }
 
@@ -36,5 +37,10 @@ public class UserTokenComponent {
             return UserTokenDto.from(token);
         }
         return UserTokenDto.from(userToken);
+    }
+
+    private int calculateWaitingOrder() {
+        int countOfWaitingUserToken = userTokenReaderRepository.getWaitOfUserTokenCount().intValue();
+        return ++countOfWaitingUserToken;
     }
 }

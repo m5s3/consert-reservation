@@ -2,6 +2,7 @@ package com.consertreservation.domain.usertoken.infra;
 
 import static com.consertreservation.domain.usertoken.model.QUserToken.userToken;
 
+import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.querydsl.jpa.JPQLQueryFactory;
@@ -19,5 +20,13 @@ public class UserTokenReaderCustomRepository implements UserTokenReaderRepositor
         return queryFactory.selectFrom(userToken)
                 .where(userToken.userId.eq(userId))
                 .fetchFirst();
+    }
+
+    @Override
+    public Long getWaitOfUserTokenCount() {
+        return queryFactory.select(userToken.count())
+                .from(userToken)
+                .where(userToken.status.eq(TokenStatus.WAIT))
+                .fetchCount();
     }
 }

@@ -6,6 +6,7 @@ import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.querydsl.jpa.JPQLQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +17,10 @@ public class UserTokenReaderCustomRepository implements UserTokenReaderRepositor
     private final JPQLQueryFactory queryFactory;
 
     @Override
-    public UserToken getUserToken(Long userId) {
-        return queryFactory.selectFrom(userToken)
+    public Optional<UserToken> getUserToken(Long userId) {
+        return Optional.ofNullable(queryFactory.selectFrom(userToken)
                 .where(userToken.userId.eq(userId))
-                .fetchFirst();
+                .fetchFirst());
     }
 
     @Override

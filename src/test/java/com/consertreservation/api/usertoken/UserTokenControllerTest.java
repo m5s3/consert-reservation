@@ -17,7 +17,7 @@ class UserTokenControllerTest extends TestConfig {
      */
     @Test
     @DisplayName("유저 토큰 발급")
-    void test() {
+    void get_user_token_test() {
         // When
         int userId = 1;
         JsonPath userToken = RestAssured.given()
@@ -26,7 +26,6 @@ class UserTokenControllerTest extends TestConfig {
                 .get("/v1/usertoken")
                 .then().log().all().extract().jsonPath();
 
-        System.out.println("userToken = " + userToken);
         // Then
         assertThat(userToken.getLong("userId")).isEqualTo(userId);
         assertThat(userToken.getString("status")).isEqualTo("WAIT");

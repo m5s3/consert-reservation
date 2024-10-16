@@ -9,6 +9,7 @@ import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.model.UserToken.UserTokenBuilder;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.consertreservation.domain.usertoken.respositories.UserTokenStoreRepository;
+import java.util.Optional;
 import java.util.UUID;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +39,7 @@ class UserTokenComponentTest {
         UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
         Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
         // When & Then
-        CreateUserTokenDto newUserToken = userTokenComponent.createToken(userId);
+        UserTokenDto newUserToken = userTokenComponent.createToken(userId);
         Assertions.assertThat(newUserToken.userId()).isEqualTo(userId);
     }
 
@@ -49,27 +50,11 @@ class UserTokenComponentTest {
         long userId = 1L;
         UUID id = UUID.randomUUID();
         UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
-        Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(userToken);
+        Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(Optional.ofNullable(userToken));
 
         // When
-        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
+        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId).get();
 
-        // Then
-        Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
-    }
-
-    @Test
-    @DisplayName("유저토큰이 존재하지 않으면 생성해서 반환한다.")
-    void show_userToken_when_non_exist_test() {
-        // Given
-        long userId = 1L;
-        UUID id = UUID.randomUUID();
-        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
-
-        Mockito.when(userTokenReaderRepository.getUserToken(userId)).thenReturn(null);
-        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
-        // When
-        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
         // Then
         Assertions.assertThat(userTokenDto.id()).isEqualTo(id);
     }
@@ -80,13 +65,13 @@ class UserTokenComponentTest {
         // Given
         long userId = 3L;
         UUID id = UUID.randomUUID();
-        UserToken thirdUserToken = createUserToken(id, userId, TokenStatus.WAIT);
+        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
 
-        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(thirdUserToken);
+        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
         Mockito.when(userTokenReaderRepository.getWaitOfUserTokenCount()).thenReturn(1L);
 
         // When
-        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId);
+        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId).get();
 
         // Then
         Assertions.assertThat(userTokenDto.waitingOrder()).isEqualTo(2);

@@ -14,6 +14,6 @@ public class UserTokenUseCase {
     private final UserTokenComponent userTokenComponent;
 
     public UserTokenDto getUserToken(Long userId) {
-        return userTokenComponent.showUserToken(userId);
+        return userTokenComponent.showUserToken(userId).orElseGet(() -> userTokenComponent.createToken(userId));
     }
 }

@@ -35,3 +35,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+---
+schedule:
+  userToken:
+    success:
+      cron: "* */10 * * * *"
+      active: true
+    expire:
+      cron: "* */10 * * * *"
+      active: true

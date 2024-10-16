@@ -15,8 +15,11 @@ public record UserTokenDto(
         return new UserTokenDto(userToken.getId(), userToken.getUserId(), userToken.getStatus(), userToken.getWaitingOrder());
     }
 
-    public static UserTokenDto from(CreateUserTokenDto createUserTokenDto) {
-        return new UserTokenDto(createUserTokenDto.id(), createUserTokenDto.userId(), createUserTokenDto.status(),
-                createUserTokenDto.waitingOrder());
+    public static UserToken toEntity(UserTokenDto dto) {
+        return UserToken.builder()
+                .id(dto.id)
+                .userid(dto.userId)
+                .status(dto.tokenStatus)
+                .build();
     }
 }

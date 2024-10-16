@@ -52,4 +52,8 @@ public class UserToken extends BaseTimeEntity {
         }
         this.waitingOrder = waitingOrder;
     }
+
+    public void changeStatus(TokenStatus status) {
+        this.status = status;
+    }
 }

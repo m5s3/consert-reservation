@@ -6,7 +6,9 @@ import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.querydsl.jpa.JPQLQueryFactory;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +31,30 @@ public class UserTokenReaderCustomRepository implements UserTokenReaderRepositor
                 .from(userToken)
                 .where(userToken.status.eq(TokenStatus.WAIT))
                 .fetchCount();
+    }
+
+    @Override
+    public List<UserToken> getWaitOfUserTokensLimited(int count) {
+        return queryFactory.selectFrom(userToken)
+                .where(userToken.status.eq(TokenStatus.WAIT))
+                .orderBy(userToken.createdAt.asc())
+                .limit(count)
+                .fetch();
+    }
+
+    @Override
+    public List<UserToken> getSuccessOfUserTokensLimited(int count) {
+        return queryFactory.selectFrom(userToken)
+                .where(userToken.status.eq(TokenStatus.SUCCESS))
+                .orderBy(userToken.updatedAt.asc())
+                .limit(count)
+                .fetch();
+    }
+
+    @Override
+    public List<UserToken> getUserTokens(List<UUID> ids) {
+        return queryFactory.selectFrom(userToken)
+                .where(userToken.id.in(ids))
+                .fetch();
     }
 }

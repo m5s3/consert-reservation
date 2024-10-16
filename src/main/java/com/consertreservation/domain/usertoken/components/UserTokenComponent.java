@@ -5,7 +5,9 @@ import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
 import com.consertreservation.domain.usertoken.respositories.UserTokenStoreRepository;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -38,5 +40,32 @@ public class UserTokenComponent {
 
     private int calculateWaitingOrder() {
         return userTokenReaderRepository.getWaitOfUserTokenCount().intValue();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserTokenDto> showWaitOfUserToken(int count) {
+        return userTokenReaderRepository.getWaitOfUserTokensLimited(count)
+                .stream().map(UserTokenDto::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserTokenDto> getWaitOfUserTokens(int count) {
+        return userTokenReaderRepository.getWaitOfUserTokensLimited(count)
+                .stream().map(UserTokenDto::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserTokenDto> getSuccessOfUserTokens(int count) {
+        return userTokenReaderRepository.getSuccessOfUserTokensLimited(count)
+                .stream().map(UserTokenDto::from)
+                .toList();
+    }
+
+    public void updateUserTokensStatus(List<UserTokenDto> userTokenDtos, TokenStatus tokenStatus) {
+        List<UUID> ids = userTokenDtos.stream().map(UserTokenDto::id).toList();
+        List<UserToken> userTokens = userTokenReaderRepository.getUserTokens(ids);
+        userTokens.forEach(userToken -> userToken.changeStatus(tokenStatus));
     }
 }

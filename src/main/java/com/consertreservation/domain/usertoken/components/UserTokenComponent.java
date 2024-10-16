@@ -37,7 +37,6 @@ public class UserTokenComponent {
     }
 
     private int calculateWaitingOrder() {
-        int countOfWaitingUserToken = userTokenReaderRepository.getWaitOfUserTokenCount().intValue();
-        return ++countOfWaitingUserToken;
+        return userTokenReaderRepository.getWaitOfUserTokenCount().intValue();
     }
 }

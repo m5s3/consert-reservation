@@ -63,15 +63,15 @@ class UserTokenComponentTest {
     @DisplayName("유저토큰을 생성시 다음 순번의 대기순서를 받는다.")
     void next_waitingOrder_test() {
         // Given
-        long userId = 3L;
+        long userId = 2L;
         UUID id = UUID.randomUUID();
-        UserToken userToken = createUserToken(id, userId, TokenStatus.WAIT);
+        UserToken secondUserToken = createUserToken(id, userId, TokenStatus.WAIT);
 
-        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(userToken);
-        Mockito.when(userTokenReaderRepository.getWaitOfUserTokenCount()).thenReturn(1L);
+        Mockito.when(userTokenStoreRepository.save(Mockito.any(UserToken.class))).thenReturn(secondUserToken);
+        Mockito.when(userTokenReaderRepository.getWaitOfUserTokenCount()).thenReturn(2L);
 
         // When
-        UserTokenDto userTokenDto = userTokenComponent.showUserToken(userId).get();
+        UserTokenDto userTokenDto = userTokenComponent.createToken(userId);
 
         // Then
         Assertions.assertThat(userTokenDto.waitingOrder()).isEqualTo(2);

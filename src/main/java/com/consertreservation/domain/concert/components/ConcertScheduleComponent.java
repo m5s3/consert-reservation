@@ -1,8 +1,9 @@
 package com.consertreservation.domain.concert.components;
 
 import com.consertreservation.domain.concert.components.dto.ConcertScheduleDto;
-import com.consertreservation.domain.concert.infra.ConcertScheduleCustomRepository;
+import com.consertreservation.domain.concert.infra.ConcertScheduleScheduleCustomRepository;
 import com.consertreservation.domain.concert.model.ConcertSchedule;
+import com.consertreservation.domain.concert.repository.ConcertScheduleStoreRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,15 +14,29 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ConcertScheduleComponent {
 
-    private final ConcertScheduleCustomRepository concertScheduleCustomRepository;
+    private final ConcertScheduleScheduleCustomRepository concertScheduleCustomRepository;
+    private final ConcertScheduleStoreRepository concertScheduleStoreRepository;
 
-    public boolean isAvailableReservation(long concertId, LocalDateTime date) {
+    public void validateAvailableReservation(long concertId, LocalDateTime date) {
         ConcertSchedule concertSchedule = concertScheduleCustomRepository.getConcertSchedule(concertId);
         ConcertScheduleValidator.validate(concertSchedule);
-        return concertSchedule.isAvailableSchedule(date);
+        concertSchedule.validateAvailable(date);
     }
 
     public ConcertScheduleDto showConcertSchedule(long concertId) {
         return ConcertScheduleDto.from(concertScheduleCustomRepository.getConcertSchedule(concertId));
+    }
+
+    public ConcertScheduleDto createConcertSchedule(ConcertScheduleDto concertScheduleDto) {
+        ConcertSchedule concertSchedule = ConcertSchedule.builder()
+                .id(concertScheduleDto.id())
+                .concertId(concertScheduleDto.concertId())
+                .reservationStateDate(concertScheduleDto.reservationStateDate())
+                .concertStartDate(concertScheduleDto.concertStartDate())
+                .concertEndDate(concertScheduleDto.concertEndDate())
+                .reservationSeat(concertScheduleDto.reservationSeat())
+                .remainOfReservationOfSeat(concertScheduleDto.remainOfReservationOfSeat())
+                .build();
+        return ConcertScheduleDto.from(concertScheduleStoreRepository.save(concertSchedule));
     }
 }

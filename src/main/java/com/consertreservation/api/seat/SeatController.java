@@ -3,10 +3,13 @@ package com.consertreservation.api.seat;
 import com.consertreservation.api.seat.dto.RequestConcert;
 import com.consertreservation.api.seat.dto.RequestReservationSeat;
 import com.consertreservation.api.seat.dto.RequestSeatDate;
+import com.consertreservation.api.seat.dto.ResponseSeatDto;
 import com.consertreservation.api.usecase.ReserveSeatUseCase;
 import com.consertreservation.api.seat.dto.ResponseReservationSeat;
+import com.consertreservation.api.usecase.SeatUserCase;
 import com.consertreservation.domain.seat.components.dto.ReservationSeatDto;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +28,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class SeatController {
 
     private final ReserveSeatUseCase reserveSeatUseCase;
+    private final SeatUserCase seatUserCase;
 
     @GetMapping("/reservation-date")
     public ResponseEntity showByDate(@RequestHeader String userTokenId, @RequestBody RequestSeatDate request) {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/reservation-seat")
-    public ResponseEntity showSeatsByConsert(@RequestHeader String userTokenId, @RequestBody RequestConcert request) {
-        return ResponseEntity.ok().build();
+    @GetMapping
+    public ResponseEntity<List<ResponseSeatDto>> showSeatsByConcertSchedule(@RequestParam("concert_schedule_id") Long concertScheduleId) {
+        return ResponseEntity.ok().body(
+                seatUserCase.getAvailableSeats(concertScheduleId)
+                        .stream()
+                        .map(ResponseSeatDto::from)
+                        .toList()
+        );
     }
 
     @PostMapping("/reservation")

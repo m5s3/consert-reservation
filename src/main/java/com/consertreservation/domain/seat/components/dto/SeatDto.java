@@ -5,10 +5,11 @@ import com.consertreservation.domain.seat.model.Seat;
 public record SeatDto(
         Long id,
         Long concertScheduleId,
-        int seatNumber
+        int seatNumber,
+        long fee
 ) {
 
     public static SeatDto from(Seat seat) {
-        return new SeatDto(seat.getId(), seat.getConcertScheduleId(), seat.getSeatNumber());
+        return new SeatDto(seat.getId(), seat.getConcertScheduleId(), seat.getSeatNumber(), seat.getFee());
     }
 }

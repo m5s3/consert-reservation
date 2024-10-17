@@ -1,6 +1,8 @@
 package com.consertreservation.domain.seat.model;
 
 import static com.consertreservation.domain.seat.exception.SeatErrorCode.ALREADY_RESERVED;
+import static com.consertreservation.domain.seat.exception.SeatErrorCode.INVALID_LESS_FEE;
+import static com.consertreservation.domain.seat.exception.SeatErrorCode.INVALID_MORE_FEE;
 
 import com.consertreservation.domain.base.BaseTimeEntity;
 import com.consertreservation.domain.seat.exception.SeatException;
@@ -28,6 +30,7 @@ public class Seat extends BaseTimeEntity {
 
     private Long concertScheduleId;
     private int seatNumber;
+    private long fee;
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", columnDefinition = "varchar(20)")
@@ -50,5 +53,15 @@ public class Seat extends BaseTimeEntity {
 
     private boolean isReserved() {
         return status == SeatStatus.RESERVED;
+    }
+
+    public void validateFee(long amount) {
+        if (this.fee < amount) {
+            throw new SeatException(INVALID_MORE_FEE, "좌석 금액보다 더 큰 결제 금액입니다");
+        }
+
+        if (this.fee > amount) {
+            throw new SeatException(INVALID_LESS_FEE, "좌석 금액보다 더 적은 결제 금액입니다");
+        }
     }
 }

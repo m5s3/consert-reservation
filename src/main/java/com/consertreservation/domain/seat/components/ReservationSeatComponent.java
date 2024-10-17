@@ -1,6 +1,7 @@
 package com.consertreservation.domain.seat.components;
 
 import static com.consertreservation.domain.seat.exception.ReservationErrorCode.ALREADY_IN_SEAT;
+import static com.consertreservation.domain.seat.exception.ReservationErrorCode.NOT_FOUND;
 
 import com.consertreservation.domain.seat.components.dto.ReservationSeatDto;
 import com.consertreservation.domain.seat.exception.ReservationSeatException;
@@ -37,5 +38,11 @@ public class ReservationSeatComponent {
                 .status(ReservationSeatStatus.ING)
                 .build();
         return ReservationSeatDto.from(reservationSeatStoreRepository.save(reservationSeat));
+    }
+
+    public void completeReservation(Long seatId, Long userId) {
+        ReservationSeat reservationSeat = reservationSeatReadRepository.getReservationSeat(seatId, userId)
+                .orElseThrow(() -> new ReservationSeatException(NOT_FOUND, "예약 좌석을 찾을 수 없습니다"));
+        reservationSeat.completeReservation();
     }
 }

@@ -1,10 +1,9 @@
 package com.consertreservation.api.payment.dto;
 
-public class RequestPayment {
+public record RequestPayment(
+        Long userId,
+        Long seatId,
+        Long amount
+) {
 
-    private int reservationSeatId;
-
-    public RequestPayment(int reservationSeatId) {
-        this.reservationSeatId = reservationSeatId;
-    }
 }

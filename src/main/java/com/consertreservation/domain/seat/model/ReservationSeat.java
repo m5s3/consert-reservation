@@ -1,6 +1,9 @@
 package com.consertreservation.domain.seat.model;
 
+import static com.consertreservation.domain.seat.exception.ReservationErrorCode.ALREADY_COMPLETED;
+
 import com.consertreservation.domain.base.BaseTimeEntity;
+import com.consertreservation.domain.seat.exception.ReservationSeatException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,5 +38,12 @@ public class ReservationSeat extends BaseTimeEntity {
         this.userId = userId;
         this.seatId = seatId;
         this.status = status;
+    }
+
+    public void completeReservation() {
+        if (status == ReservationSeatStatus.COMPLETED) {
+            throw new ReservationSeatException(ALREADY_COMPLETED, "이미 완료된 결제입니다");
+        }
+        status = ReservationSeatStatus.COMPLETED;
     }
 }

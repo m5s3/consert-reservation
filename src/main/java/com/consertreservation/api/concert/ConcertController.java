@@ -33,10 +33,10 @@ public class ConcertController {
     }
 
     @GetMapping("/date")
-    public ResponseEntity<List<ResponseConcert>> getConcerts(@RequestParam("date") LocalDateTime dateTime) {
+    public ResponseEntity<List<ResponseConcert>> getConcerts(@RequestParam("user_id") Long userId, @RequestParam("date") LocalDateTime dateTime) {
         return ResponseEntity.ok().body(
                 concertUseCase
-                        .searchConcertByDate(dateTime)
+                        .searchConcertByDate(userId, dateTime)
                         .stream()
                         .map(ResponseConcert::from)
                         .toList()

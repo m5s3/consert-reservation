@@ -6,6 +6,7 @@ import com.consertreservation.domain.concert.components.dto.ConcertDto;
 import com.consertreservation.domain.concert.components.dto.ConcertScheduleDto;
 import com.consertreservation.domain.concert.components.dto.ConcertWithScheduleDto;
 import com.consertreservation.domain.seat.components.SeatComponent;
+import com.consertreservation.domain.usertoken.components.UserTokenComponent;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
@@ -21,6 +22,7 @@ public class ConcertUseCase {
     private final ConcertComponent concertComponent;
     private final ConcertScheduleComponent concertScheduleComponent;
     private final SeatComponent seatComponent;
+    private final UserTokenComponent userTokenComponent;
 
     public ConcertWithScheduleDto createConcert(
             String title,
@@ -45,7 +47,8 @@ public class ConcertUseCase {
         }
     }
 
-    public List<ConcertWithScheduleDto> searchConcertByDate(LocalDateTime dateTime) {
+    public List<ConcertWithScheduleDto> searchConcertByDate(Long userId, LocalDateTime dateTime) {
+        userTokenComponent.validateAuthorization(userId);
         return concertComponent.getConcerts(dateTime);
     }
 }

@@ -1,7 +1,6 @@
 package com.consertreservation.domain.concert.model;
 
 import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.FULL_RESERVATION_SEAT;
-import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.INVALID_REMAIN_OF_SEAT;
 import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.INVALID_RESERVATION_DATE;
 
 import com.consertreservation.domain.concert.exception.ConcertScheduleException;

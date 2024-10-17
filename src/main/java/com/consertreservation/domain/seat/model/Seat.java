@@ -32,9 +32,9 @@ public class Seat extends BaseTimeEntity {
     private SeatStatus status;
 
     @Builder
-    public Seat(Long id, Long concert_schedule_id, int seatNumber, SeatStatus status) {
+    public Seat(Long id, Long concertScheduleId, int seatNumber, SeatStatus status) {
         this.id = id;
-        this.concert_schedule_id = concert_schedule_id;
+        this.concert_schedule_id = concertScheduleId;
         this.seatNumber = seatNumber;
         this.status = status;
     }

@@ -1,4 +1,4 @@
-package com.consertreservation.domain.seat;
+package com.consertreservation.domain.seat.model;
 
 import com.consertreservation.domain.base.BaseTimeEntity;
 import jakarta.persistence.Column;

@@ -65,7 +65,7 @@ public class ConcertSchedule {
     }
 
     public void decreaseRemainOfSeat() {
-        if (this.remainOfReservationSeat < 0) {
+        if (this.remainOfReservationSeat < 1) {
             throw new ConcertScheduleException(FULL_RESERVATION_SEAT, "예약이 가득 찼습니다");
         }
         this.remainOfReservationSeat--;

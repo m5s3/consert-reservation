@@ -27,15 +27,21 @@ public class ConcertScheduleComponent {
         return ConcertScheduleDto.from(concertScheduleCustomRepository.getConcertSchedule(concertId));
     }
 
-    public ConcertScheduleDto createConcertSchedule(ConcertScheduleDto concertScheduleDto) {
+    public ConcertScheduleDto createConcertSchedule(
+            Long concertId,
+            LocalDateTime reservationStateDate,
+            LocalDateTime concertStartDate,
+            LocalDateTime concertEndDate,
+            int reservationSeat,
+            int remainOfReservationOfSeat
+    ) {
         ConcertSchedule concertSchedule = ConcertSchedule.builder()
-                .id(concertScheduleDto.id())
-                .concertId(concertScheduleDto.concertId())
-                .reservationStateDate(concertScheduleDto.reservationStateDate())
-                .concertStartDate(concertScheduleDto.concertStartDate())
-                .concertEndDate(concertScheduleDto.concertEndDate())
-                .reservationSeat(concertScheduleDto.reservationSeat())
-                .remainOfReservationOfSeat(concertScheduleDto.remainOfReservationOfSeat())
+                .concertId(concertId)
+                .reservationStateDate(reservationStateDate)
+                .concertStartDate(concertStartDate)
+                .concertEndDate(concertEndDate)
+                .reservationSeat(reservationSeat)
+                .remainOfReservationOfSeat(remainOfReservationOfSeat)
                 .build();
         return ConcertScheduleDto.from(concertScheduleStoreRepository.save(concertSchedule));
     }

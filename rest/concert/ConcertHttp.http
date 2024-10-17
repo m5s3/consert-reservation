@@ -1,5 +1,4 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
+### 예약 가능한 콘서트 조회
+GET localhost:8080/v1/concert/date?user_id=2&date=2024-10-18T00:00:00
 
 ###

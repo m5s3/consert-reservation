@@ -7,9 +7,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReservationSeat extends BaseTimeEntity {
 
@@ -21,4 +24,12 @@ public class ReservationSeat extends BaseTimeEntity {
     private Long userId;
     private Long seatId;
     private ReservationSeatStatus status;
+
+    @Builder
+    public ReservationSeat(Long id, Long userId, Long seatId, ReservationSeatStatus status) {
+        this.id = id;
+        this.userId = userId;
+        this.seatId = seatId;
+        this.status = status;
+    }
 }

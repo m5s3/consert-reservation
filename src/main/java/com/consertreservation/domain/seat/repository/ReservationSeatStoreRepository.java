@@ -1,4 +1,8 @@
 package com.consertreservation.domain.seat.repository;
 
-public interface SeatStoreRepository {
+import com.consertreservation.domain.seat.model.ReservationSeat;
+
+public interface ReservationSeatStoreRepository {
+
+    ReservationSeat save(ReservationSeat reservationSeat);
 }

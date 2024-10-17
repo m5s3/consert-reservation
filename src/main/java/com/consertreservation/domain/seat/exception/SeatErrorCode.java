@@ -1,4 +1,6 @@
 package com.consertreservation.domain.seat.exception;
 
-public class SeatErrorCode {
+public enum SeatErrorCode {
+
+    ALREADY_RESERVED,
 }

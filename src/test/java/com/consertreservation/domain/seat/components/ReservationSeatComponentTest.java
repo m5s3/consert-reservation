@@ -1,11 +1,14 @@
 package com.consertreservation.domain.seat.components;
 
+import static com.consertreservation.domain.seat.exception.ReservationErrorCode.ALREADY_IN_SEAT;
 import static com.consertreservation.domain.seat.exception.SeatErrorCode.ALREADY_RESERVED;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.consertreservation.domain.seat.exception.ReservationSeatException;
 import com.consertreservation.domain.seat.exception.SeatException;
 import com.consertreservation.domain.seat.model.Seat;
 import com.consertreservation.domain.seat.model.SeatStatus;
+import com.consertreservation.domain.seat.repository.ReservationSeatReadRepository;
 import com.consertreservation.domain.seat.repository.ReservationSeatStoreRepository;
 import com.consertreservation.domain.seat.repository.SeatReaderRepository;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
@@ -19,15 +22,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationSeatComponentTest {
-
+    
     @Mock
-    UserTokenReaderRepository userTokenReaderRepository;
-
-    @Mock
-    ReservationSeatStoreRepository reservationSeatStoreRepository;
-
-    @Mock
-    SeatReaderRepository seatReaderRepository;
+    ReservationSeatReadRepository reservationSeatReadRepository;
 
     @InjectMocks
     ReservationSeatComponent reservationSeatComponent;
@@ -40,14 +37,12 @@ class ReservationSeatComponentTest {
         Long seatId = 1L;
         Long userId = 1L;
 
-        Seat seat = Seat.builder().id(seatId)
-                .status(SeatStatus.RESERVED).build();
-        Mockito.when(seatReaderRepository.getSeat(seatId)).thenReturn(seat);
+        Mockito.when(reservationSeatReadRepository.isReservedSeat(seatId, userId))
+                .thenReturn(Boolean.TRUE);
 
         // When & Then
         assertThatThrownBy(() -> reservationSeatComponent.reserveSeat(seatId, userId))
-                .isInstanceOf(SeatException.class)
-                .hasFieldOrPropertyWithValue("errorCode", ALREADY_RESERVED);
-
+                .isInstanceOf(ReservationSeatException.class)
+                .hasFieldOrPropertyWithValue("errorCode", ALREADY_IN_SEAT);
     }
 }

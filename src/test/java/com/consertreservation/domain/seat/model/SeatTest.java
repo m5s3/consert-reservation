@@ -40,7 +40,7 @@ class SeatTest {
                 .isInstanceOf(SeatException.class)
                 .hasFieldOrPropertyWithValue("errorCode", INVALID_MORE_FEE);
     }
-    
+
     @Test
     @DisplayName("좌석 금액보다 더 작은 금액을 지분하면 예외가 발생한다")
     void validate_fee_less_test() {

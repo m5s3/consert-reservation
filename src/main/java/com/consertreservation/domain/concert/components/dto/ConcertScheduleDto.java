@@ -2,7 +2,6 @@ package com.consertreservation.domain.concert.components.dto;
 
 import com.consertreservation.domain.concert.model.ConcertSchedule;
 import java.time.LocalDateTime;
-import lombok.Builder;
 
 public record ConcertScheduleDto(
         Long id,
@@ -16,8 +15,8 @@ public record ConcertScheduleDto(
 
     public static ConcertScheduleDto from(ConcertSchedule concertSchedule) {
         return new ConcertScheduleDto(concertSchedule.getId(), concertSchedule.getConcertId(),
-                concertSchedule.getReservationStateDate(), concertSchedule.getConcertStartDate(),
+                concertSchedule.getReservationStartDate(), concertSchedule.getConcertStartDate(),
                 concertSchedule.getConcertEndDate(), concertSchedule.getReservationSeat(),
-                concertSchedule.getRemainOfReservationOfSeat());
+                concertSchedule.getRemainOfReservationSeat());
     }
 }

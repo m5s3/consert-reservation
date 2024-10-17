@@ -1,6 +1,9 @@
 package com.consertreservation.domain.usertoken.components;
 
+import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.NOT_FOUND;
+
 import com.consertreservation.domain.usertoken.components.dto.UserTokenDto;
+import com.consertreservation.domain.usertoken.exception.UserTokenException;
 import com.consertreservation.domain.usertoken.model.TokenStatus;
 import com.consertreservation.domain.usertoken.model.UserToken;
 import com.consertreservation.domain.usertoken.respositories.UserTokenReaderRepository;
@@ -67,5 +70,13 @@ public class UserTokenComponent {
         List<UUID> ids = userTokenDtos.stream().map(UserTokenDto::id).toList();
         List<UserToken> userTokens = userTokenReaderRepository.getUserTokens(ids);
         userTokens.forEach(userToken -> userToken.changeStatus(tokenStatus));
+    }
+
+    @Transactional(readOnly = true)
+    public void validateAuthorization(Long userId) {
+        log.info("userId={}", userId);
+        UserToken userToken = userTokenReaderRepository.getUserToken(userId)
+                .orElseThrow(() -> new UserTokenException(NOT_FOUND, "유저 토큰을 찾을 수가 없습니다"));
+        userToken.validateAuthorization();
     }
 }

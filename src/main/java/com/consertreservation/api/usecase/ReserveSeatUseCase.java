@@ -1,10 +1,9 @@
 package com.consertreservation.api.usecase;
 
-import com.consertreservation.api.usecase.dto.ResponseReservationSeat;
 import com.consertreservation.domain.concert.components.ConcertScheduleComponent;
-import com.consertreservation.domain.concert.components.dto.ConcertScheduleDto;
 import com.consertreservation.domain.seat.components.ReservationSeatComponent;
-import com.consertreservation.domain.seat.model.ReservationSeat;
+import com.consertreservation.domain.seat.components.dto.ReservationSeatDto;
+import com.consertreservation.domain.usertoken.components.UserTokenComponent;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,14 @@ public class ReserveSeatUseCase {
 
     private final ConcertScheduleComponent concertScheduleComponent;
     private final ReservationSeatComponent reservationSeatComponent;
+    private final UserTokenComponent userTokenComponent;
 
-    public ResponseReservationSeat reserveSeat(Long concertId, Long userId, Long seatId, LocalDateTime reserveDate) {
-        concertScheduleComponent.isAvailableReservation(concertId, reserveDate);
-        return ResponseReservationSeat.from(reservationSeatComponent.reserveSeat(seatId, userId));
+    public ReservationSeatDto reserveSeat(Long seatId, Long userId) {
+        return reservationSeatComponent.reserveSeat(seatId, userId);
+    }
+
+    public void validateReserveSeat(Long concertId, Long userId, LocalDateTime reserveDate) {
+        userTokenComponent.validateAuthorization(userId);
+        concertScheduleComponent.validateAvailableReservation(concertId, reserveDate);
     }
 }

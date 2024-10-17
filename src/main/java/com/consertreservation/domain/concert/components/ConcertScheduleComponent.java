@@ -32,16 +32,14 @@ public class ConcertScheduleComponent {
             LocalDateTime reservationStateDate,
             LocalDateTime concertStartDate,
             LocalDateTime concertEndDate,
-            int reservationSeat,
-            int remainOfReservationOfSeat
+            int reservationSeat
     ) {
         ConcertSchedule concertSchedule = ConcertSchedule.builder()
                 .concertId(concertId)
-                .reservationStateDate(reservationStateDate)
+                .reservationStartDate(reservationStateDate)
                 .concertStartDate(concertStartDate)
                 .concertEndDate(concertEndDate)
                 .reservationSeat(reservationSeat)
-                .remainOfReservationOfSeat(remainOfReservationOfSeat)
                 .build();
         return ConcertScheduleDto.from(concertScheduleStoreRepository.save(concertSchedule));
     }

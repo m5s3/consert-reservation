@@ -13,9 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Seat extends BaseTimeEntity {
 
@@ -24,7 +26,7 @@ public class Seat extends BaseTimeEntity {
     @Column(name = "seat_id")
     private Long id;
 
-    private Long concert_schedule_id;
+    private Long concertScheduleId;
     private int seatNumber;
 
     @Enumerated(EnumType.STRING)
@@ -34,7 +36,7 @@ public class Seat extends BaseTimeEntity {
     @Builder
     public Seat(Long id, Long concertScheduleId, int seatNumber, SeatStatus status) {
         this.id = id;
-        this.concert_schedule_id = concertScheduleId;
+        this.concertScheduleId = concertScheduleId;
         this.seatNumber = seatNumber;
         this.status = status;
     }

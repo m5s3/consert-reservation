@@ -1,6 +1,7 @@
 package com.consertreservation.domain.usertoken.model;
 
 import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.INVALID_WAITING_ORDER;
+import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.UNAUTHORIZED;
 
 import com.consertreservation.domain.base.BaseTimeEntity;
 import com.consertreservation.domain.usertoken.exception.UserTokenException;
@@ -14,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.UUID;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,5 +55,12 @@ public class UserToken extends BaseTimeEntity {
 
     public void changeStatus(TokenStatus status) {
         this.status = status;
+    }
+
+    public boolean validateAuthorization() {
+        if (this.status != TokenStatus.SUCCESS) {
+            throw new UserTokenException(UNAUTHORIZED, "해당 유저는 권한이 없습니다");
+        }
+        return true;
     }
 }

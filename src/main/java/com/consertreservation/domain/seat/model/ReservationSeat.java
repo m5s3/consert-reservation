@@ -3,6 +3,8 @@ package com.consertreservation.domain.seat.model;
 import com.consertreservation.domain.base.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +25,8 @@ public class ReservationSeat extends BaseTimeEntity {
 
     private Long userId;
     private Long seatId;
+    @Enumerated(EnumType.STRING)
+    @Column(name="status", columnDefinition = "varchar(20)")
     private ReservationSeatStatus status;
 
     @Builder

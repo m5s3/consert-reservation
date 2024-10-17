@@ -26,7 +26,6 @@ public class ReservationSeatComponent {
     private final ReservationSeatReadRepository reservationSeatReadRepository;
 
     public ReservationSeatDto reserveSeat(Long seatId, Long userId) {
-        log.info("reservationSeatReadRepository.isReservedSeat(seatId, userId)={}", reservationSeatReadRepository.isReservedSeat(seatId, userId));
         if (reservationSeatReadRepository.isReservedSeat(seatId, userId)) {
             throw new ReservationSeatException(ALREADY_IN_SEAT, "이미 예약했습니다");
         }

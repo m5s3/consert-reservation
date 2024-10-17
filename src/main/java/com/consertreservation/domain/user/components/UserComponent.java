@@ -31,4 +31,11 @@ public class UserComponent {
                 .orElseThrow(() -> new UserException(NOT_FOUND, "유저를 찾을 수 없습니다"));
         return UserChargeDto.from(user);
     }
+
+    public UserChargeDto charge(Long userId, long amount) {
+        User user = userReaderRepository.getUser(userId)
+                .orElseThrow(() -> new UserException(NOT_FOUND, "유저를 찾을 수 없습니다"));;
+        user.addCharge(amount);
+        return UserChargeDto.from(user);
+    }
 }

@@ -28,25 +28,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Result> charge(@RequestHeader String userTokenId, @RequestBody RequestCharge request) {
-        return ResponseEntity.ok().body(new Result<>("충전을 완료했습니다."));
-    }
-
-    public static class Result<T> {
-        T data;
-        String message;
-
-        public Result(T data) {
-            this.data = data;
-        }
-
-        public Result(String message) {
-            this.message = message;
-        }
-
-        public Result(T data, String message) {
-            this.data = data;
-            this.message = message;
-        }
+    public ResponseEntity<ResponseCharge> charge(@RequestBody RequestCharge request) {
+        UserChargeDto charge = userUseCase.charge(request.userId(), request.amount());
+        return ResponseEntity.ok().body(ResponseCharge.of(charge.userId(), charge.amount()));
     }
 }

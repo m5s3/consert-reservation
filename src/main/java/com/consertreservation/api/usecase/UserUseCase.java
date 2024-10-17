@@ -17,4 +17,8 @@ public class UserUseCase {
     public UserChargeDto getCharge(Long userId) {
         return userComponent.getCharge(userId);
     }
+
+    public UserChargeDto charge(Long userId, long amount) {
+        return userComponent.charge(userId, amount);
+    }
 }

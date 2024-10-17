@@ -1,14 +1,7 @@
-package com.consertreservation.api.charge.dto;
+package com.consertreservation.api.user.dto;
 
-public class RequestCharge {
-
-    private final int amount;
-
-    public RequestCharge(int amount) {
-        this.amount = amount;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
+public record RequestCharge(
+        Long userId,
+        long amount
+) {
 }

@@ -16,11 +16,13 @@ public class ReserveSeatUseCase {
     private final ReservationSeatComponent reservationSeatComponent;
     private final UserTokenComponent userTokenComponent;
 
-    public ReservationSeatDto reserveSeat(Long seatId, Long userId) {
+    public ReservationSeatDto reserveSeat(Long seatId, Long userId, Long concertId, LocalDateTime reserveDate) {
+        validateReserveSeat(concertId, userId, reserveDate);
+        concertScheduleComponent.decreaseRemainOfSeat(concertId);
         return reservationSeatComponent.reserveSeat(seatId, userId);
     }
 
-    public void validateReserveSeat(Long concertId, Long userId, LocalDateTime reserveDate) {
+    private void validateReserveSeat(Long concertId, Long userId, LocalDateTime reserveDate) {
         userTokenComponent.validateAuthorization(userId);
         concertScheduleComponent.validateAvailableReservation(concertId, reserveDate);
     }

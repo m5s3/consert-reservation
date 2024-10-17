@@ -39,8 +39,7 @@ public class SeatController {
     @PostMapping("/reservation")
     public ResponseEntity<ResponseReservationSeat> reserveSeat(
             @RequestBody RequestReservationSeat request) {
-        reserveSeatUseCase.validateReserveSeat(request.seatId(), request.userId(), request.reservationDate());
         return ResponseEntity.ok()
-                .body(ResponseReservationSeat.from(reserveSeatUseCase.reserveSeat(request.seatId(), request.userId())));
+                .body(ResponseReservationSeat.from(reserveSeatUseCase.reserveSeat(request.seatId(), request.userId(), request.concertId(), request.reservationDate())));
     }
 }

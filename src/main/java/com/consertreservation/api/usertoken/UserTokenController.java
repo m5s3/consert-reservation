@@ -19,11 +19,6 @@ public class UserTokenController {
 
     private final UserTokenUseCase userTokenUseCase;
 
-    @PostMapping
-    public ResponseEntity getUserToken() {
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping
     public ResponseEntity<ResponseUserToken> getUserToken(@RequestParam(name = "user_id") Long userId) {
         return ResponseEntity.ok().body(ResponseUserToken.fromUserTokenDto(userTokenUseCase.getUserToken(userId)));

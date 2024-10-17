@@ -30,11 +30,6 @@ public class SeatController {
     private final ReserveSeatUseCase reserveSeatUseCase;
     private final SeatUserCase seatUserCase;
 
-    @GetMapping("/reservation-date")
-    public ResponseEntity showByDate(@RequestHeader String userTokenId, @RequestBody RequestSeatDate request) {
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping
     public ResponseEntity<List<ResponseSeatDto>> showSeatsByConcertSchedule(@RequestParam("user_id") Long userId,
             @RequestParam("concert_schedule_id") Long concertScheduleId) {

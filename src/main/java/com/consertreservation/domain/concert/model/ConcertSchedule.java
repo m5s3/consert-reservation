@@ -1,6 +1,7 @@
 package com.consertreservation.domain.concert.model;
 
 import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.FULL_RESERVATION_SEAT;
+import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.INVALID_REMAIN_OF_SEAT;
 import static com.consertreservation.domain.concert.exception.ConcertScheduleErrorCode.INVALID_RESERVATION_DATE;
 
 import com.consertreservation.domain.concert.exception.ConcertScheduleException;
@@ -62,5 +63,12 @@ public class ConcertSchedule {
                     "예약 시작일은 %s 이고 예약 종료일은 %s 입니다. 요청 받은 날짜는 %s 입니다".formatted(
                             reservationStartDate, concertStartDate, date));
         }
+    }
+
+    public void decreaseRemainOfSeat() {
+        if (this.remainOfReservationSeat < 0) {
+            throw new ConcertScheduleException(FULL_RESERVATION_SEAT, "예약이 가득 찼습니다");
+        }
+        this.remainOfReservationSeat--;
     }
 }

@@ -23,6 +23,11 @@ public class ConcertScheduleComponent {
         concertSchedule.validateAvailable(date);
     }
 
+    public void decreaseRemainOfSeat(long concertId) {
+        ConcertSchedule concertSchedule = concertScheduleCustomRepository.getConcertSchedule(concertId);
+        concertSchedule.decreaseRemainOfSeat();
+    }
+
     public ConcertScheduleDto showConcertSchedule(long concertId) {
         return ConcertScheduleDto.from(concertScheduleCustomRepository.getConcertSchedule(concertId));
     }

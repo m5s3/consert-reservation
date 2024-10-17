@@ -1,6 +1,9 @@
 package com.consertreservation.domain.seat.model;
 
+import static com.consertreservation.domain.seat.exception.SeatErrorCode.ALREADY_RESERVED;
+
 import com.consertreservation.domain.base.BaseTimeEntity;
+import com.consertreservation.domain.seat.exception.SeatException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,5 +37,16 @@ public class Seat extends BaseTimeEntity {
         this.concert_schedule_id = concert_schedule_id;
         this.seatNumber = seatNumber;
         this.status = status;
+    }
+
+    public void reserve() {
+        if (isReserved()) {
+            throw new SeatException(ALREADY_RESERVED, "이미 예약된 좌석입니다");
+        }
+        this.status = SeatStatus.RESERVED;
+    }
+
+    private boolean isReserved() {
+        return status == SeatStatus.RESERVED;
     }
 }

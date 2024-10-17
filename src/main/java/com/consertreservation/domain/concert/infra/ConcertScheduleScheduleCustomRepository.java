@@ -3,14 +3,14 @@ package com.consertreservation.domain.concert.infra;
 import static com.consertreservation.domain.concert.model.QConcertSchedule.concertSchedule;
 
 import com.consertreservation.domain.concert.model.ConcertSchedule;
-import com.consertreservation.domain.concert.repository.ConcertReaderRepository;
+import com.consertreservation.domain.concert.repository.ConcertScheduleReaderRepository;
 import com.querydsl.jpa.JPQLQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ConcertScheduleCustomRepository implements ConcertReaderRepository {
+public class ConcertScheduleScheduleCustomRepository implements ConcertScheduleReaderRepository {
 
     private final JPQLQueryFactory queryFactory;
 

@@ -1,0 +1,4 @@
+### 1. 유저 토큰 가져오기
+GET http://localhost:8080/v1/usertoken?user_id=1
+
+###

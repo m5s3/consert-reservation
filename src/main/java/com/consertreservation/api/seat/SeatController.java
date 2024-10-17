@@ -36,9 +36,10 @@ public class SeatController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResponseSeatDto>> showSeatsByConcertSchedule(@RequestParam("concert_schedule_id") Long concertScheduleId) {
+    public ResponseEntity<List<ResponseSeatDto>> showSeatsByConcertSchedule(@RequestParam("user_id") Long userId,
+            @RequestParam("concert_schedule_id") Long concertScheduleId) {
         return ResponseEntity.ok().body(
-                seatUserCase.getAvailableSeats(concertScheduleId)
+                seatUserCase.getAvailableSeats(userId, concertScheduleId)
                         .stream()
                         .map(ResponseSeatDto::from)
                         .toList()

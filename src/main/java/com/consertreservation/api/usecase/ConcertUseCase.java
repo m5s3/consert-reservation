@@ -7,6 +7,7 @@ import com.consertreservation.domain.concert.components.dto.ConcertScheduleDto;
 import com.consertreservation.domain.concert.components.dto.ConcertWithScheduleDto;
 import com.consertreservation.domain.seat.components.SeatComponent;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,9 @@ public class ConcertUseCase {
         for(int i = 1; i <= COUNT_OF_SEAT; i ++) {
             seatComponent.createSeat(concertSchedule.id(), i);
         }
+    }
+
+    public List<ConcertWithScheduleDto> searchConcertByDate(LocalDateTime dateTime) {
+        return concertComponent.getConcerts(dateTime);
     }
 }

@@ -7,7 +7,7 @@ public record ResponseConcert(
         Long concertId,
         String title,
         Long concertScheduleId,
-        LocalDateTime reservationStateDate,
+        LocalDateTime reservationStartDate,
         LocalDateTime concertStartDate,
         LocalDateTime concertEndDate,
         int reservationSeat,
@@ -17,7 +17,7 @@ public record ResponseConcert(
     public static ResponseConcert from(ConcertWithScheduleDto concertWithSchedule) {
         return new ResponseConcert(concertWithSchedule.concertId(), concertWithSchedule.title(),
                 concertWithSchedule.concertScheduleId(),
-                concertWithSchedule.reservationStateDate(), concertWithSchedule.concertStartDate(),
+                concertWithSchedule.reservationStartDate(), concertWithSchedule.concertStartDate(),
                 concertWithSchedule.concertEndDate(),
                 concertWithSchedule.reservationSeat(),
                 concertWithSchedule.remainOfReservationOfSeat());

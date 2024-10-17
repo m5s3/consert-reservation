@@ -7,7 +7,7 @@ public record ConcertDto(
         String title
 ) {
 
-    public static ConcertDto from(Concert concert) {
+    public static ConcertDto fromEntity(Concert concert) {
         return new ConcertDto(concert.getId(), concert.getTitle());
     }
 }

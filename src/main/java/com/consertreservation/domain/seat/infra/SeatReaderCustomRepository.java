@@ -30,4 +30,11 @@ public class SeatReaderCustomRepository implements SeatReaderRepository {
                 .where(seat.status.eq(SeatStatus.AVAILABLE))
                 .fetch();
     }
+
+    @Override
+    public List<Seat> getSeats(List<Long> ids) {
+        return queryFactory.selectFrom(seat)
+                .where(seat.id.in(ids))
+                .fetch();
+    }
 }

@@ -46,4 +46,8 @@ public class ReservationSeat extends BaseTimeEntity {
         }
         status = ReservationSeatStatus.COMPLETED;
     }
+
+    public void cancelReservation() {
+        status = ReservationSeatStatus.CANCELLED;
+    }
 }

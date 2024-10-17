@@ -65,4 +65,8 @@ public class Seat extends BaseTimeEntity {
             throw new SeatException(INVALID_LESS_FEE, "좌석 금액보다 더 적은 결제 금액입니다");
         }
     }
+
+    public void restoreStatus() {
+        this.status = SeatStatus.AVAILABLE;
+    }
 }

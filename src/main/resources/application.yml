@@ -44,6 +44,10 @@ schedule:
     expire:
       cron: "* */10 * * * *"
       active: true
+  reserveSeat:
+    restore:
+      cron: "* */5 * * * *"
+      active: true
 
 springdoc:
   swagger-ui:

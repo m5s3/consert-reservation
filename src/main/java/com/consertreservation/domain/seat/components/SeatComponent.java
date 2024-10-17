@@ -31,6 +31,11 @@ public class SeatComponent {
         seat.validateFee(amount);
     }
 
+    public void restoreReservedSeat(List<Long> seatIds) {
+        List<Seat> seats = seatReaderRepository.getSeats(seatIds);
+        seats.forEach(Seat::restoreStatus);
+    }
+
     @Transactional(readOnly = true)
     public List<SeatDto> getAvailableSeats(Long concertScheduleId) {
         List<Seat> seats = seatReaderRepository.getAvailableSeats(concertScheduleId);

@@ -6,6 +6,8 @@ import com.consertreservation.domain.seat.model.ReservationSeat;
 import com.consertreservation.domain.seat.model.ReservationSeatStatus;
 import com.consertreservation.domain.seat.repository.ReservationSeatReadRepository;
 import com.querydsl.jpa.JPQLQueryFactory;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,5 +33,13 @@ public class ReservationSeatCustomRepository implements ReservationSeatReadRepos
                 .where(reservationSeat.userId.eq(userId))
                 .where(reservationSeat.seatId.eq(seatId))
                 .fetchFirst());
+    }
+
+    @Override
+    public List<ReservationSeat> getExpiredReservationSeats() {
+        return queryFactory.selectFrom(reservationSeat)
+                .where(reservationSeat.status.eq(ReservationSeatStatus.ING))
+                .where(reservationSeat.updatedAt.before(LocalDateTime.now().minusMinutes(5)))
+                .fetch();
     }
 }

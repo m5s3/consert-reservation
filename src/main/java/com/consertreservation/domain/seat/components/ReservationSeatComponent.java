@@ -11,6 +11,7 @@ import com.consertreservation.domain.seat.model.Seat;
 import com.consertreservation.domain.seat.repository.ReservationSeatReadRepository;
 import com.consertreservation.domain.seat.repository.ReservationSeatStoreRepository;
 import com.consertreservation.domain.seat.repository.SeatReaderRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -44,5 +45,15 @@ public class ReservationSeatComponent {
         ReservationSeat reservationSeat = reservationSeatReadRepository.getReservationSeat(seatId, userId)
                 .orElseThrow(() -> new ReservationSeatException(NOT_FOUND, "예약 좌석을 찾을 수 없습니다"));
         reservationSeat.completeReservation();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReservationSeatDto> getExpiredReservationSeats() {
+        return reservationSeatReadRepository.getExpiredReservationSeats().stream().map(ReservationSeatDto::from)
+                .toList();
+    }
+
+    public void changeReservationSeatsStatusToCancel() {
+        reservationSeatReadRepository.getExpiredReservationSeats().forEach(ReservationSeat::cancelReservation);
     }
 }

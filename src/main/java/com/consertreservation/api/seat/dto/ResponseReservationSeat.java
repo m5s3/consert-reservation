@@ -1,13 +1,7 @@
-package com.consertreservation.api.usecase.dto;
+package com.consertreservation.api.seat.dto;
 
 import com.consertreservation.domain.seat.components.dto.ReservationSeatDto;
 
-/**
- * Long id,
- *         Long userId,
- *         Long seatId,
- *         ReservationSeatStatus status
- */
 public record ResponseReservationSeat(
         Long id,
         Long seatId,

@@ -24,8 +24,7 @@ public class ConcertController {
                 request.reservationStateDate(),
                 request.concertStartDate(),
                 request.concertEndDate(),
-                request.reservationSeat(),
-                request.remainOfReservationOfSeat()
+                request.reservationSeat()
         )));
     }
 }

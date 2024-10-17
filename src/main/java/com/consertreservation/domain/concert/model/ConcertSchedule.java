@@ -44,10 +44,9 @@ public class ConcertSchedule {
         this.remainOfReservationOfSeat = remainOfReservationOfSeat;
     }
 
-    public boolean isAvailableSchedule(LocalDateTime date) {
+    public void validateAvailable(LocalDateTime date) {
         validateDate(date);
         validateSeat();
-        return true;
     }
 
     private void validateSeat() {

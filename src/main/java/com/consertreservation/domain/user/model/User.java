@@ -13,12 +13,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
@@ -29,6 +29,13 @@ public class User extends BaseTimeEntity {
 
     private long charge;
     private String name;
+
+    @Builder
+    public User(Long id, long charge, String name) {
+        this.id = id;
+        this.charge = charge;
+        this.name = name;
+    }
 
     public void minusCharge(long amount) {
         if (charge < amount) {

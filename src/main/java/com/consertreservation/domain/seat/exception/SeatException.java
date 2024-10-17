@@ -9,4 +9,9 @@ public class SeatException extends RuntimeException {
         this.errorCode =errorCode;
         this.message = message;
     }
+
+    @Override
+    public String getMessage() {
+        return "[%s] %s".formatted(errorCode, message);
+    }
 }

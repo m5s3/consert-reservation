@@ -4,5 +4,6 @@ public enum UserTokenErrorCode {
 
     INVALID_WAITING_ORDER,
     NOT_FOUND,
-    UNAUTHORIZED
+    UNAUTHORIZED,
+    ALREADY_IN_EXPIRED,
 }

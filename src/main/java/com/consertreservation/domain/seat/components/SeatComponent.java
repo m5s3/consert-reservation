@@ -36,6 +36,11 @@ public class SeatComponent {
         seats.forEach(Seat::restoreStatus);
     }
 
+    public void reserve(Long seatId) {
+        Seat seat = seatReaderRepository.getSeat(seatId);
+        seat.reserve();
+    }
+
     @Transactional(readOnly = true)
     public List<SeatDto> getAvailableSeats(Long concertScheduleId) {
         List<Seat> seats = seatReaderRepository.getAvailableSeats(concertScheduleId);

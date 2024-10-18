@@ -1,5 +1,6 @@
 package com.consertreservation.domain.usertoken.model;
 
+import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.ALREADY_IN_EXPIRED;
 import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.INVALID_WAITING_ORDER;
 import static com.consertreservation.domain.usertoken.exception.UserTokenErrorCode.UNAUTHORIZED;
 
@@ -62,5 +63,12 @@ public class UserToken extends BaseTimeEntity {
             throw new UserTokenException(UNAUTHORIZED, "해당 유저는 권한이 없습니다");
         }
         return true;
+    }
+
+    public void expire() {
+        if (this.status == TokenStatus.EXPIRED) {
+            throw new UserTokenException(ALREADY_IN_EXPIRED, "이미 만료된 토큰입니다");
+        }
+        this.status = TokenStatus.EXPIRED;
     }
 }

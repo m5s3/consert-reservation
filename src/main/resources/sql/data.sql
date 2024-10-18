@@ -1,6 +1,13 @@
 INSERT INTO concert(`title`, `created_at`, `updated_at`) VALUES ('아이유', now(), now()), ('디비치', now(), now()),('AKMU', now(), now());
 
-INSERT INTO concert_schedule(`concert_id`, `reservation_start_date`, `concert_start_date`, `concert_end_date`, `reservation_seat`, `remain_of_reservation_seat`,`created_at`, `updated_at`) VALUES (3, '2024-10-16 10:00:00.000000', '2024-10-18 08:00:00.000000', '2024-10-18 10:00:00.000000', 50, 50, NOW(),NOW());
+INSERT INTO concert_schedule(`concert_id`, `reservation_start_date`, `concert_start_date`, `concert_end_date`,
+                             `reservation_seat`, `remain_of_reservation_seat`, `created_at`, `updated_at`)
+VALUES (1, now(), ADDDATE(date(now()), INTERVAL 2 DAY), ADDDATE(date(now()), INTERVAL 3 DAY), 50, 50, NOW(),
+        NOW()),
+       (2, ADDDATE(date(now()), INTERVAL -3 DAY), ADDDATE(date(now()), INTERVAL -2 DAY), ADDDATE(date(now()), INTERVAL -1 DAY), 50, 50, NOW(),
+        NOW()),
+       (3, ADDDATE(date(now()), INTERVAL 3 DAY), ADDDATE(date(now()), INTERVAL 2 DAY), ADDDATE(date(now()), INTERVAL 1 DAY), 50, 50, NOW(),
+        NOW());
 
 INSERT INTO seat(`concert_schedule_id`, `seat_number`, `fee`, `status`, `created_at`, `updated_at`)
 VALUES (1, 1, 10000, 'AVAILABLE', NOW(), NOW()),

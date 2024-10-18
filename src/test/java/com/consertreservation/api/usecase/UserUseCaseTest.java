@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.consertreservation.domain.user.components.dto.UserChargeDto;
 import com.consertreservation.domain.user.infra.UserReaderCustomRepository;
 import com.consertreservation.domain.user.model.User;
+import com.consertreservation.domain.user.repositories.UserStoreRepository;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,14 +23,17 @@ class UserUseCaseTest {
     UserUseCase userUseCase;
 
     @Autowired
-    UserReaderCustomRepository userReaderCustomRepository;
+    UserStoreRepository userStoreRepository;
 
     @Test
     @DisplayName("충전하기")
     void charge() {
         // Given
-        User user = userReaderCustomRepository.getUser(1L).get();
-        long nowCharge = user.getCharge();
+        User user = User.builder()
+                .name("test")
+                .build();
+        User newUser = userStoreRepository.save(user);
+        long nowCharge = newUser.getCharge();
 
         // When
         userUseCase.charge(user.getId(), 10000);

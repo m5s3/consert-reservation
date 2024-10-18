@@ -1,12 +1,13 @@
 package com.consertreservation.api.seat.dto;
 
-public class RequestReservationSeat {
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
-    private final int concertId;
-    private final int seatId;
-
-    public RequestReservationSeat(int concertId, int seatId) {
-        this.concertId = concertId;
-        this.seatId = seatId;
-    }
+public record RequestReservationSeat(
+        Long seatId,
+        Long userId,
+        Long concertId,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+        LocalDateTime reservationDate
+) {
 }

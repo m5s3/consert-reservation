@@ -1,0 +1,11 @@
+### 충전 금액 조회
+GET localhost:8080/v1/charge?user_id=1
+
+### 충전 금액 충전
+POST localhost:8080/v1/charge
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "amount": 100000
+}

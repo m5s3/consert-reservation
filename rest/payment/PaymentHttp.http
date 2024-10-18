@@ -1,0 +1,11 @@
+### 결제
+POST localhost:8080/v1/payment
+Content-Type: application/json
+
+{
+  "seatId": 1,
+  "userId": 1,
+  "amount": 10000
+}
+
+###

@@ -1,0 +1,15 @@
+### 좌석 예약
+POST localhost:8080/v1/seat/reservation
+Content-Type: application/json
+
+{
+  "seatId": 1,
+  "userId": 2,
+  "concertId": 1,
+  "reservationDate": "2024-10-17 00:00:00"
+}
+
+### 예약 가능한 좌석 조회
+GET localhost:8080/v1/seat?concert_schedule_id=1
+
+###

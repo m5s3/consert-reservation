@@ -22,6 +22,7 @@ public class UserTokenReaderCustomRepository implements UserTokenReaderRepositor
     public Optional<UserToken> getUserToken(Long userId) {
         return Optional.ofNullable(queryFactory.selectFrom(userToken)
                 .where(userToken.userId.eq(userId))
+                .orderBy(userToken.createdAt.desc())
                 .fetchFirst());
     }
 

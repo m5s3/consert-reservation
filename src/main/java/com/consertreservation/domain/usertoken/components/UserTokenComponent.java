@@ -41,6 +41,14 @@ public class UserTokenComponent {
         return userToken.map(UserTokenDto::from);
     }
 
+    @Transactional(readOnly = true)
+    public boolean isExpired(long userId) {
+        log.info("isExpired");
+        UserToken userToken = userTokenReaderRepository.getUserToken(userId)
+                .orElseThrow(() -> new UserTokenException(NOT_FOUND, "해당 유저 토큰이 없습니다"));
+        return userToken.isExpire();
+    }
+
     private int calculateWaitingOrder() {
         return userTokenReaderRepository.getWaitOfUserTokenCount().intValue();
     }

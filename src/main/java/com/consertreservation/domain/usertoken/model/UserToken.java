@@ -71,4 +71,8 @@ public class UserToken extends BaseTimeEntity {
         }
         this.status = TokenStatus.EXPIRED;
     }
+
+    public boolean isExpire() {
+        return this.status == TokenStatus.EXPIRED;
+    }
 }
